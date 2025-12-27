@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tessari - Complete Demo Suite</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #17a589 0%, #148f77 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 24px;
+            background: white;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .header h1 {
+            font-size: 48px;
+            color: white;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
+            animation: fadeIn 1s ease 0.3s both;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-number {
+            font-size: 40px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .demos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 32px;
+            margin-bottom: 60px;
+        }
+
+        .demo-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease both;
+        }
+
+        .demo-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .demo-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .demo-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .demo-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
+        }
+
+        .demo-header {
+            background: linear-gradient(135deg, #17a589 0%, #148f77 100%);
+            padding: 32px;
+            text-align: center;
+        }
+
+        .demo-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+
+        .demo-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .demo-subtitle {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .demo-body {
+            padding: 32px;
+        }
+
+        .demo-description {
+            font-size: 15px;
+            color: #374151;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 24px;
+        }
+
+        .features-list li {
+            font-size: 14px;
+            color: #374151;
+            padding: 10px 0;
+            padding-left: 28px;
+            position: relative;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+
+        .features-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #17a589;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .demo-button {
+            width: 100%;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #17a589 0%, #148f77 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .demo-button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 24px rgba(23, 165, 137, 0.4);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            background: #fef3c7;
+            color: #92400e;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+        }
+
+        .badge.new {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .badge.premium {
+            background: #f3e8ff;
+            color: #6b21a8;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            color: rgba(255, 255, 255, 0.9);
+            animation: fadeIn 1s ease 0.6s both;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-link:hover {
+            opacity: 0.7;
+        }
+
+        .footer-text {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .file-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        .file-size {
+            font-weight: 600;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 36px;
+            }
+
+            .demos-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+    		<img src="tessari-logo.png" alt="Tessari Logo" style="width: 80px; height: 80px; object-fit: contain;">
+	    </div>
+            <h1>Tessari Demo Suite</h1>
+            <p>Complete sports organization management platform with WhatsApp integration and AI-powered automation. From individual athletes to national federations.</p>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Full Demos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">95%</div>
+                <div class="stat-label">Time Saved</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">92%</div>
+                <div class="stat-label">AI Success Rate</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">287</div>
+                <div class="stat-label">Clubs Connected</div>
+            </div>
+        </div>
+
+        <!-- Demos Grid -->
+        <div class="demos-grid">
+            <!-- Compliance Engine -->
+            <div class="demo-card">
+                <div class="demo-header">
+                    <div class="demo-icon">📋</div>
+                    <div class="demo-title">Compliance Engine</div>
+                    <div class="demo-subtitle">Organization Level</div>
+                </div>
+                <div class="demo-body">
+                    <span class="badge">Individual → Academy</span>
+                    <p class="demo-description">
+                        Document compliance management for academies. Track player clearances, licenses, and certifications with AI-powered insights and WhatsApp integration.
+                    </p>
+                    <ul class="features-list">
+                        <li>Dashboard with 87% compliance tracking</li>
+                        <li>User Profile view (player perspective)</li>
+                        <li>WhatsApp document uploads</li>
+                        <li>AI detects expiring documents</li>
+                        <li>Automated verification workflows</li>
+                        <li>Complete audit log</li>
+                    </ul>
+                    <button class="demo-button" onclick="window.location.href='compliance engine.html'">
+                        Launch Compliance Engine →
+                    </button>
+                    <div class="file-info">
+                        <span>50-150 athletes</span>
+                        <span class="file-size">245 KB</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Operations Hub -->
+            <div class="demo-card">
+                <div class="demo-header">
+                    <div class="demo-icon">⚙</div>
+                    <div class="demo-title">Operations Hub</div>
+                    <div class="demo-subtitle">Academy Level</div>
+                </div>
+                <div class="demo-body">
+                    <span class="badge new">✨ AI Program Creator</span>
+                    <p class="demo-description">
+                        Complete academy operations management. Schedule, tasks, people, and programs with AI-powered program creation that saves 95% of planning time.
+                    </p>
+                    <ul class="features-list">
+                        <li>Schedule management (8 sessions/week)</li>
+                        <li>Task tracking (12 active tasks)</li>
+                        <li>People roster (142 athletes)</li>
+                        <li><strong>AI Program Creator (NEW!)</strong></li>
+                        <li>WhatsApp team coordination</li>
+                        <li>Budget auto-calculation</li>
+                    </ul>
+                    <button class="demo-button" onclick="window.location.href='operations hub.html'">
+                        Launch Operations Hub →
+                    </button>
+                    <div class="file-info">
+                        <span>142 athletes, 8 coaches</span>
+                        <span class="file-size">297 KB</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Federation Management -->
+            <div class="demo-card">
+                <div class="demo-header">
+                    <div class="demo-icon">🏆</div>
+                    <div class="demo-title">Federation Management</div>
+                    <div class="demo-subtitle">National Level</div>
+                </div>
+                <div class="demo-body">
+                    <span class="badge premium">287 Clubs</span>
+                    <p class="demo-description">
+                        National-level oversight and compliance monitoring. Manage 287 clubs with AI-powered analytics, bulk WhatsApp updates, and transfer management.
+                    </p>
+                    <ul class="features-list">
+                        <li>National compliance (89% rate)</li>
+                        <li>287 clubs across 36 states</li>
+                        <li>Transfer management system</li>
+                        <li>WhatsApp bulk communications</li>
+                        <li>AI identifies non-compliant clubs</li>
+                        <li>National registry & reports</li>
+                    </ul>
+                    <button class="demo-button" onclick="window.location.href='federation management.html'">
+                        Launch Federation Management →
+                    </button>
+                    <div class="file-info">
+                        <span>10,000+ athletes nationwide</span>
+                        <span class="file-size">279 KB</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-links">
+                <a href="#" class="footer-link">About Tessari</a>
+                <a href="#" class="footer-link">Documentation</a>
+                <a href="#" class="footer-link">API Access</a>
+                <a href="#" class="footer-link">Contact Sales</a>
+            </div>
+            <p class="footer-text">
+                © 2025 Tessari. Complete sports organization management platform.<br>
+                Built for African infrastructure with WhatsApp integration and AI automation.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Log demo launches
+        document.querySelectorAll('.demo-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const demoName = this.closest('.demo-card').querySelector('.demo-title').textContent;
+                console.log('Launching demo:', demoName);
+            });
+        });
+
+        console.log('✓ Tessari Master Hub loaded');
+        console.log('✓ 3 demos ready');
+        console.log('✓ Total package: 821 KB');
+    </script>
+</body>
+</html>
